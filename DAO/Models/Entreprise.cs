@@ -24,5 +24,16 @@ namespace DAO.Models
         public string NumAdress { get; set; } = String.Empty;
         public string Sector { get; set; } = String.Empty;
 
+        public Entreprise()
+        {
+
+        }
+
+        public Entreprise(int id, string nom)
+        {
+            EntrepriseName = nom;
+            Id = id;
+        }
+
     }
 }

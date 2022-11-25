@@ -1,4 +1,10 @@
-﻿namespace MVC.ViewModels
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAO.ViewModels
 {
     public class EntrepriseViewModel
     {
@@ -8,7 +14,11 @@
         public EntrepriseViewModel(int id, string nom)
         {
             Id = id;
-            Nom = nom;  
+            Nom = nom;
+
+        }
+        public EntrepriseViewModel()
+        {
 
         }
     }

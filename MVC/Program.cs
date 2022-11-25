@@ -1,4 +1,5 @@
 using DAO;
+using DAO.DAO;
 using DAO.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>  // <<<<<
 
     options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
 }).AddEntityFrameworkStores<ApplicationDbContext>();
-
+builder.Services.AddScoped<IEntrepriseDAO, EntrepriseDAO>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
