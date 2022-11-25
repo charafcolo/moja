@@ -21,7 +21,11 @@ namespace DAO.Models
         public string Status { get; set; } = String.Empty;
         public string Comment { get; set; } = String.Empty;
         [Required]
+<<<<<<< Updated upstream
         public Entreprise Entreprise { get; set; }
+=======
+        public Entreprise Entreprise { get; set; } = new();
+>>>>>>> Stashed changes
         public Candidature()
         {
 
