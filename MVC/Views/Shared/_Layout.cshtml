@@ -32,6 +32,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Entreprise" asp-action="Index">Entreprise</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Candidature" asp-action="Index">Candidature</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
