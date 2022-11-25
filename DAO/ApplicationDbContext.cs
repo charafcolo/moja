@@ -13,6 +13,7 @@ namespace DAO
 
         //public DbSet<Product> Products { get; set; }
         public DbSet<Candidature> Candidatures { get; set; }
+        public DbSet<Entreprise> Entreprises { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

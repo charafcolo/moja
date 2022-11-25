@@ -20,8 +20,21 @@ namespace DAO.Models
         [Required]
         public string Status { get; set; } = String.Empty;
         public string Comment { get; set; } = String.Empty;
+        [Required]
+        public Entreprise Entreprise { get; set; }
+        public Candidature()
+        {
 
+        }
 
-
+        public Candidature(int id, string postName, DateTime modificationDate, string status, string comment, Entreprise entreprise)
+        {
+            Id = id;
+            PostName = postName;
+            ModificationDate = modificationDate;
+            Status = status;
+            Comment = comment;
+            Entreprise = entreprise;
+        }
     }
 }
