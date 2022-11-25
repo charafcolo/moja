@@ -9,19 +9,7 @@ namespace DAO.Models
 {
     public class Entreprise
     {
-        /*
-         * EntrepriseID
-NomEntreprise
-Email
-Numero
-NomResp
-PrenomResp
-PosteResp
-Ville
-NumAdress
-RueAdress
-Secteur
-         */
+
         [Key]
         public int Id { get; set; }
         [Required]

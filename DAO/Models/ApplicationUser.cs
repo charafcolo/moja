@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAO.Models
 {
-    public class ApplicationUser :IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         public string FirstName { get; set; } = String.Empty;
