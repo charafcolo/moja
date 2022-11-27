@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f50d5f73-7e53-4baa-acd7-d5f411004f2d": {
+      "ProjectGuid": "f50d5f73-7e53-4baa-acd7-d5f411004f2d",
+      "DisplayName": "DAO",
+      "ColorIndex": 0
+    },
+    "aa03810b-f636-4b9f-ad86-09eaa8b998ad": {
+      "ProjectGuid": "aa03810b-f636-4b9f-ad86-09eaa8b998ad",
+      "DisplayName": "MVC",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Fichiers divers",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}

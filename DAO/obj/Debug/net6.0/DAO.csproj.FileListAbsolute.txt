@@ -1,0 +1,16 @@
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\appsettings.Development.json
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\appsettings.json
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\DAO.deps.json
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\DAO.runtimeconfig.json
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\DAO.dll
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\ref\DAO.dll
+D:\C#\mojaLionel\moja\DAO\bin\Debug\net6.0\DAO.pdb
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.csproj.AssemblyReference.cache
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.AssemblyInfoInputs.cache
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.AssemblyInfo.cs
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.csproj.CoreCompileInputs.cache
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.dll
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\ref\DAO.dll
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.pdb
+D:\C#\mojaLionel\moja\DAO\obj\Debug\net6.0\DAO.genruntimeconfig.cache
