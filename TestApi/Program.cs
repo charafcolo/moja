@@ -20,11 +20,11 @@ namespace TestApi
         static void Main(string[] args)
         {
           
-
+            // do not upload (sensitive information)
             var clientId = "PAR_moja_c8712da2a47803e757a10ed81a58e3e3938cf69232156e46c632429319c96358";
             var clientSecret = "04f96776c711aef4611b17975a22f6234b86928d2f0573a8e0c9745d8abdede9";
 
-            var tokenEndpoint = "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token";
+            var tokenEndpoint = "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token/?realm=%2Fapi_labonneboitev1";
 
             var protectedResource = "https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search";
 
@@ -37,34 +37,39 @@ namespace TestApi
             client.DefaultRequestHeaders.Authorization = authValue;
 
             // Create the request body
-            var requestBody = new StringContent(JsonConvert.SerializeObject(new
-            {
-                    grant_type = "client_credentials",
-                    client_id =clientId,
-                    client_secret =clientSecret,
-                    scope = "api_labonneboitev1"
-
-            }), Encoding.UTF8, "application/x-www-form-urlencoded") ;
-
+            var requestBody = new StringContent("{{\r\ngrant_type: client_credentials\r\nclient_id: PAR_moja_c8712da2a47803e757a10ed81a58e3e3938cf69232156e46c632429319c96358\r\nclient_secret: 04f96776c711aef4611b17975a22f6234b86928d2f0573a8e0c9745d8abdede9\r\nscope: api_offresdemploiv2\r\n}}", Encoding.UTF8, "application/x-www-form-urlencoded");
             // Send the request
             var response = client.PostAsync(tokenEndpoint, requestBody).Result;
 
+
             // Read the response
             var responseContent = response.Content.ReadAsStringAsync().Result;
+            //Console.WriteLine(responseContent);
             // Console.WriteLine(responseContent);
 
-            var tokenResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
-            var accessToken = tokenResponse.access_token;
 
-            // Add the access token to the Authorization header
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            try
+            {
+                var tokenResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
-            // Send a request to the protected resource
-            var resourceResponse = client.GetAsync(protectedResource).Result;
+                var accessToken = tokenResponse.access_token;
 
-            // Read the response
-            var resourceResponseContent = resourceResponse.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(resourceResponseContent);
+                // Add the access token to the Authorization header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                // Send a request to the protected resource
+                var resourceResponse = client.GetAsync(protectedResource).Result;
+
+                // Read the response
+                var resourceResponseContent = resourceResponse.Content.ReadAsStringAsync().Result;
+               // Console.WriteLine(resourceResponseContent);
+            }
+            catch (JsonReaderException e)
+            {
+                Console.WriteLine("Error deserializing JSON: " + e.Message);
+            }
+
+
 
             Console.WriteLine("Ecrire le mot 'offre' pour lancer une recherche :");
 
@@ -77,7 +82,7 @@ namespace TestApi
                 {
                     case "offre":
                         Console.WriteLine(responseContent);
-                        Console.WriteLine(resourceResponseContent);
+                        //Console.WriteLine(resourceResponseContent);
                         break;
                     case "exit":
                         Environment.Exit(0);
