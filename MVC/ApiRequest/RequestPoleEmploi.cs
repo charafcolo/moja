@@ -15,10 +15,10 @@ namespace MVC.ApiRequest
     public static class RequestPoleEmploi
     {
 
-        public static List<Offre> RetourResult(string job)
+        public static List<Offre> RetourResult(string jobAndCity)
         {
             (RestClient, RestResponse, RestRequest) TokenResult = GetToken();
-            return SearchJob(TokenResult.Item1, TokenResult.Item2, TokenResult.Item3, job);
+            return SearchJob(TokenResult.Item1, TokenResult.Item2, TokenResult.Item3, jobAndCity);
         }
 
         private static (RestClient, RestResponse, RestRequest) GetToken()
@@ -38,11 +38,11 @@ namespace MVC.ApiRequest
 
         }
 
-        private static List<Offre> SearchJob(RestClient client, RestResponse response, RestRequest request, string job)
+        private static List<Offre> SearchJob(RestClient client, RestResponse response, RestRequest request, string jobAndCity)
         {
             List<Offre> offres = new();
-            string motsCles = job;
-            if (job != "")
+            string motsCles = jobAndCity;
+            if (motsCles/*.Split(" ")[0]*/ != "")
             {
                 dynamic resp = JObject.Parse(response.Content);
                 string token = resp.access_token;
@@ -51,12 +51,18 @@ namespace MVC.ApiRequest
                 request.AddHeader("authorization", "Bearer " + token);
                 request.AddHeader("cache-control", "no-cache");
                 response = client.Execute(request);
-                resp = JObject.Parse(response.Content)["resultats"];
-                
-                foreach (var item in resp)
+                if(response.StatusCode.ToString() != "NoContent")
                 {
-                    offres.Add(new(item["intitule"].ToString(), item["description"].ToString(), item["lieuTravail"]["libelle"].ToString(), item["origineOffre"]["urlOrigine"].ToString()));
+                    resp = JObject.Parse(response.Content)["resultats"];
+                    foreach (var item in resp)
+                    {
+                        offres.Add(new(item["intitule"].ToString(), item["description"].ToString(), item["lieuTravail"]["libelle"].ToString(), item["origineOffre"]["urlOrigine"].ToString()));
+                    }
                 }
+                
+                
+                
+
             }
             return offres;
 

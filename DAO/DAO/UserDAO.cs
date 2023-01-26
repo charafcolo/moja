@@ -37,13 +37,15 @@ namespace DAO.DAO
         }
         public string GetPost(string id)
         {
-            List<Candidature> c = _db.Candidatures.ToList();
+            IQueryable<Candidature> c = _db.Candidatures.Where(c => c.linkedUser.Id == id);
             c.Select(c => c.linkedUser.Id).Where(i => i == id);
-            if(c.Count == 0)
+            List<Entreprise> e = _db.Entreprises.ToList();
+            if(c.Count() == 0)
             {
                 return "";
             }
-            return c.First().PostName;
+            string postAndCity = c.First().PostName+" "+c.First().Entreprise.City;
+            return postAndCity;
         }
     }
 }

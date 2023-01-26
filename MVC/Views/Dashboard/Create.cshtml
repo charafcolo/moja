@@ -4,6 +4,7 @@
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
@@ -25,7 +26,7 @@
         <input asp-for="EntrepriseName" class="form-control" />
         <span asp-validation-for="EntrepriseName" class="text-danger"></span>
         <label asp-for="EntrepriseCity" class="control-label"></label>
-        <input asp-for="EntrepriseCity" class="form-control" />
+        <input asp-for="EntrepriseCity" class="form-control" id="ville"/>
         <span asp-validation-for="EntrepriseCity" class="text-danger"></span>
     </div>
     <div class="form-group">
