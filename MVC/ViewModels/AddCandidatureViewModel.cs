@@ -32,7 +32,8 @@ namespace MVC.ViewModels
         public string Comment { get; set; }
         //EntrepriseProperties
         public string EntrepriseName { get; set; }
+        public string EntrepriseCity { get; set; }
 
-        
+
     }
 }

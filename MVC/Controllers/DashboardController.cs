@@ -46,7 +46,7 @@ namespace MVC.Controllers
             try
             {
 
-                Entreprise newEntreprise = new(viewModel.EntrepriseName);
+                Entreprise newEntreprise = new(viewModel.EntrepriseName) { City = viewModel.EntrepriseCity};
                 Candidature createCandidature = new(viewModel.PostName, viewModel.ModificationDate, viewModel.Status, viewModel.Comment);
                 createCandidature.Entreprise = newEntreprise;
                 _dao.AddCandidature(User.FindFirstValue(ClaimTypes.NameIdentifier), createCandidature);

@@ -12,6 +12,7 @@ namespace DAO.DAO
         public Task AddCandidature(string id , Candidature c);
         public Task DeleteCandidature(int id);
         public Task<List<Candidature>> GetCandidatureByUser(string id);
+        public string GetPost(string id);
 
     }
 }

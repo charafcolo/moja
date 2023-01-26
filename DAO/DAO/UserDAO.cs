@@ -33,8 +33,17 @@ namespace DAO.DAO
         {
             List<Candidature> c = await _db.Candidatures.ToListAsync();
             c.Select(c => c.linkedUser.Id).Where(i => i == id);
-            Debug.WriteLine(c.Count);
             return c;
+        }
+        public string GetPost(string id)
+        {
+            List<Candidature> c = _db.Candidatures.ToList();
+            c.Select(c => c.linkedUser.Id).Where(i => i == id);
+            if(c.Count == 0)
+            {
+                return "";
+            }
+            return c.First().PostName;
         }
     }
 }

@@ -8,16 +8,17 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Formatting;
+using DAO.DAO;
 
 namespace MVC.ApiRequest
 {
     public static class RequestPoleEmploi
     {
 
-        public static List<Offre> RetourResult()
+        public static List<Offre> RetourResult(string job)
         {
             (RestClient, RestResponse, RestRequest) TokenResult = GetToken();
-            return SearchJob(TokenResult.Item1, TokenResult.Item2, TokenResult.Item3);
+            return SearchJob(TokenResult.Item1, TokenResult.Item2, TokenResult.Item3, job);
         }
 
         private static (RestClient, RestResponse, RestRequest) GetToken()
@@ -33,29 +34,33 @@ namespace MVC.ApiRequest
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
             request.AddParameter("application/x-www-form-urlencoded", "grant_type=client_credentials&scope=" + scope + "&client_id=" + client_id + "&client_secret=" + client_secret, ParameterType.RequestBody);
             RestResponse response = client.Execute(request);
-            Debug.WriteLine("Je suis appelez une fois");
             return (client, response, request);
-            
+
         }
 
-        private static List<Offre> SearchJob(RestClient client, RestResponse response, RestRequest request)
+        private static List<Offre> SearchJob(RestClient client, RestResponse response, RestRequest request, string job)
         {
-            string motsCles = "Developpeur";
-            dynamic resp = JObject.Parse(response.Content);
-            string token = resp.access_token;
-            client = new RestClient($"https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?range=1-3&motsCles={motsCles}");
-            request = new RestRequest("", Method.Get);
-            request.AddHeader("authorization", "Bearer " + token);
-            request.AddHeader("cache-control", "no-cache");
-            response = client.Execute(request);
-            resp = JObject.Parse(response.Content)["resultats"];
             List<Offre> offres = new();
-            foreach (var item in resp)
+            string motsCles = job;
+            if (job != "")
             {
-                offres.Add(new(item["intitule"].ToString(), item["description"].ToString(), item["lieuTravail"]["libelle"].ToString(), item["origineOffre"]["urlOrigine"].ToString()));
+                dynamic resp = JObject.Parse(response.Content);
+                string token = resp.access_token;
+                client = new RestClient($"https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?range=1-3&motsCles={motsCles}");
+                request = new RestRequest("", Method.Get);
+                request.AddHeader("authorization", "Bearer " + token);
+                request.AddHeader("cache-control", "no-cache");
+                response = client.Execute(request);
+                resp = JObject.Parse(response.Content)["resultats"];
+                
+                foreach (var item in resp)
+                {
+                    offres.Add(new(item["intitule"].ToString(), item["description"].ToString(), item["lieuTravail"]["libelle"].ToString(), item["origineOffre"]["urlOrigine"].ToString()));
+                }
             }
-
             return offres;
+
+            
         }
 
 
