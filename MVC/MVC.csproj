@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.csproj" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
 	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
 	  <PackageReference Include="RestSharp" Version="108.0.3" />
   </ItemGroup>
