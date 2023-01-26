@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC.ApiRequest;
 using MVC.ViewModels;
 using System.Diagnostics;
 
@@ -15,7 +16,7 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(RequestPoleEmploi.RetourResult());
         }
 
         public IActionResult Privacy()

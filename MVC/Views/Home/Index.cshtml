@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-}
 
+    ViewData["Title"] = "Home Page";
+
+
+}
+@model List<Offre>
+@inject SignInManager<ApplicationUser> signInManager;
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenue</h1>
+    <p>Veuillez vous connectez afin d'accéder à vos services</p>
+    @if (signInManager.IsSignedIn(User))
+    {
+        <div class="row w-100 m-20 justify-content-center">
+        @foreach (var item in Model)
+            {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Localisation)</p>
+                        <a href="@item.Link" class="btn btn-primary">Voir plus</a>
+                        </div>
+                    </div>
+            }
+    </div>
+    }
+
 </div>

@@ -26,7 +26,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>  // <<<<<
 
     options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
 }).AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddScoped<IEntrepriseDAO, EntrepriseDAO>();
+builder.Services.AddScoped<IUserDAO, UserDAO>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

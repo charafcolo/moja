@@ -15,19 +15,16 @@ namespace DAO.Models
         [Required]
         public string LastName { get; set; } = String.Empty;
 
-        public List<Candidature>? Candidatures { get; set; }
 
         public ApplicationUser()
         {
 
         }
 
-        public ApplicationUser(string firstName, string lastName, List<Candidature>? candidatures)
+        public ApplicationUser(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
-            Candidatures = new();
-            Candidatures = candidatures;
         }
     }
 }

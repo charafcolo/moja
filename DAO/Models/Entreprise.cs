@@ -29,10 +29,10 @@ namespace DAO.Models
 
         }
 
-        public Entreprise(int id, string nom)
+        public Entreprise(string nom)
         {
             EntrepriseName = nom;
-            Id = id;
+
         }
 
     }

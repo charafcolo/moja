@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAO.Migrations
 {
     /// <inheritdoc />
-    public partial class EntrepriseModel : Migration
+    public partial class ModelsUpdated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,14 +58,14 @@ namespace DAO.Migrations
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntrepriseId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    linkedUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Candidatures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Candidatures_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Candidatures_AspNetUsers_linkedUserId",
+                        column: x => x.linkedUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -81,31 +81,31 @@ namespace DAO.Migrations
                 keyColumn: "Id",
                 keyValue: "2301D884-221A-4E7D-B509-0113DCC043E1",
                 column: "ConcurrencyStamp",
-                value: "ec9446c0-4446-4239-aee9-9a38f61f7bb1");
+                value: "e159a8cc-3c43-4357-8b34-a473b9cff5f5");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
                 column: "ConcurrencyStamp",
-                value: "2cae6b48-3af9-4c1e-8b55-b804535b25ab");
+                value: "37b6f045-543a-45df-9d32-5e5c9f94f6bb");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                 columns: new[] { "ConcurrencyStamp", "FirstName", "LastName", "PasswordHash" },
-                values: new object[] { "85769421-68ea-4387-ae23-3f71db78f589", "", "", "AQAAAAEAACcQAAAAEIXvVojPMVaHqHjMRBXoOLlpPa9KOb0UjfjsCjivRJrDvbJwoM6WV0f95E/pSbN7Uw==" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Candidatures_ApplicationUserId",
-                table: "Candidatures",
-                column: "ApplicationUserId");
+                values: new object[] { "fc8d440d-a42f-4abd-b038-fe962292bdf7", "", "", "AQAAAAEAACcQAAAAECPLBluyyKuWbNsbe2neNNkU0DnfrhmcySsqFwV0M8ABM0H1NYCdVpismiiWWV5aaA==" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Candidatures_EntrepriseId",
                 table: "Candidatures",
                 column: "EntrepriseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Candidatures_linkedUserId",
+                table: "Candidatures",
+                column: "linkedUserId");
         }
 
         /// <inheritdoc />

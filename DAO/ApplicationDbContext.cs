@@ -2,6 +2,7 @@
 using DAO.Models.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace DAO
 {
@@ -18,6 +19,7 @@ namespace DAO
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new AdminConfiguration());

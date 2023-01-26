@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221125150236_EntrepriseModel")]
-    partial class EntrepriseModel
+    [Migration("20230126084002_ModelsUpdated")]
+    partial class ModelsUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,7 +102,7 @@ namespace DAO.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85769421-68ea-4387-ae23-3f71db78f589",
+                            ConcurrencyStamp = "fc8d440d-a42f-4abd-b038-fe962292bdf7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "",
@@ -110,7 +110,7 @@ namespace DAO.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "MASTERADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIXvVojPMVaHqHjMRBXoOLlpPa9KOb0UjfjsCjivRJrDvbJwoM6WV0f95E/pSbN7Uw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPLBluyyKuWbNsbe2neNNkU0DnfrhmcySsqFwV0M8ABM0H1NYCdVpismiiWWV5aaA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
                             TwoFactorEnabled = false,
@@ -125,9 +125,6 @@ namespace DAO.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -147,11 +144,14 @@ namespace DAO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("linkedUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("EntrepriseId");
+
+                    b.HasIndex("linkedUserId");
 
                     b.ToTable("Candidatures");
                 });
@@ -239,14 +239,14 @@ namespace DAO.Migrations
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "ec9446c0-4446-4239-aee9-9a38f61f7bb1",
+                            ConcurrencyStamp = "e159a8cc-3c43-4357-8b34-a473b9cff5f5",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "2cae6b48-3af9-4c1e-8b55-b804535b25ab",
+                            ConcurrencyStamp = "37b6f045-543a-45df-9d32-5e5c9f94f6bb",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -367,17 +367,19 @@ namespace DAO.Migrations
 
             modelBuilder.Entity("DAO.Models.Candidature", b =>
                 {
-                    b.HasOne("DAO.Models.ApplicationUser", null)
-                        .WithMany("Candidatures")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("DAO.Models.Entreprise", "Entreprise")
                         .WithMany()
                         .HasForeignKey("EntrepriseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAO.Models.ApplicationUser", "linkedUser")
+                        .WithMany()
+                        .HasForeignKey("linkedUserId");
+
                     b.Navigation("Entreprise");
+
+                    b.Navigation("linkedUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -429,11 +431,6 @@ namespace DAO.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DAO.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Candidatures");
                 });
 #pragma warning restore 612, 618
         }
