@@ -1,11 +1,11 @@
-﻿@model AddCandidatureViewModel
+﻿@model EditCandidatureViewModel
 @{
-    ViewData["Date"] = DateTime.Now;
+    
 }
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<form asp-action="Create">
+<form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="PostName" class="control-label">Nom du poste :</label>
@@ -13,23 +13,18 @@
         <span asp-validation-for="PostName" class="text-danger"></span>
         <label asp-for="Status" class="control-label">Status : </label>
         <br />
-        @Html.DropDownListFor(c => c.Status, Model.StatusList)
+        @*@Html.DropDownListFor(c => c.Status, Model.StatusList)*@
+        <input asp-for="Status" class="form-control" />
         <br />
         <span asp-validation-for="Status" class="text-danger"></span>
         <label asp-for="ModificationDate" class="control-label">Date de modification : </label>
         <br />
-        <input type="date" asp-for="ModificationDate" class="form-control" value="@Model.ModificationDate.ToString("yyyy-MM-dd")"/>
+        <input type="date" asp-for="ModificationDate" class="form-control" value="@Model.ModificationDate.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="ModificationDate" class="text-danger"></span>
         <br />
         <label asp-for="Comment" class="control-label">Commentaire : </label>
         <input asp-for="Comment" class="form-control" />
         <span asp-validation-for="Comment" class="text-danger"></span>
-        <label asp-for="EntrepriseName" class="control-label">Nom de l'entreprise : </label>
-        <input asp-for="EntrepriseName" class="form-control" />
-        <span asp-validation-for="EntrepriseName" class="text-danger"></span>
-        <label asp-for="EntrepriseCity" class="control-label">Ville du poste : </label>
-        <input asp-for="EntrepriseCity" class="form-control" id="ville"/>
-        <span asp-validation-for="EntrepriseCity" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Créer ma candidature" class="btn btn-primary" />

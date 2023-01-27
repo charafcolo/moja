@@ -13,6 +13,8 @@ namespace DAO.DAO
         public Task DeleteCandidature(int id, string userId);
         public Task<IQueryable<Candidature>> GetCandidatureByUser(string id);
         public Task<string> GetPost(string id);
+        public Task UpdateCandidature(int id, string userId, Candidature updated);
+        public Task<Candidature> GetCandidatureById(int id, string userId);
 
     }
 }

@@ -36,7 +36,7 @@ namespace MVC.Controllers
         public ActionResult Create()
         {
             AddCandidatureViewModel model = new();
-            
+
             return View(model);
         }
 
@@ -48,13 +48,14 @@ namespace MVC.Controllers
         {
             try
             {
-                if(ModelState.IsValid) { 
-                Entreprise newEntreprise = new(viewModel.EntrepriseName) { City = viewModel.EntrepriseCity};
-                Candidature createCandidature = new(viewModel.PostName, viewModel.ModificationDate, viewModel.Status, viewModel.Comment);
-                createCandidature.Entreprise = newEntreprise;
-                await _dao.AddCandidature(User.FindFirstValue(ClaimTypes.NameIdentifier), createCandidature);
+                if (ModelState.IsValid)
+                {
+                    Entreprise newEntreprise = new(viewModel.EntrepriseName) { City = viewModel.EntrepriseCity };
+                    Candidature createCandidature = new(viewModel.PostName, viewModel.ModificationDate, viewModel.Status, viewModel.Comment);
+                    createCandidature.Entreprise = newEntreprise;
+                    await _dao.AddCandidature(User.FindFirstValue(ClaimTypes.NameIdentifier), createCandidature);
 
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
                 }
                 return View(viewModel);
             }
@@ -65,12 +66,43 @@ namespace MVC.Controllers
         }
 
         // GET: DashboardController/Delete/5
+        [Authorize]
+
         public ActionResult Delete(int id)
         {
             return View();
         }
+        // TODO : A terminé le système pour édit les candidatures
+        /*        public async Task<ActionResult> Edit(int id)
+                {
+                    Candidature c = await _dao.GetCandidatureById(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    EditCandidatureViewModel cView = new(c.PostName, c.Status, c.Comment, c.ModificationDate);
+
+
+                    return View(cView);
+                }
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public async Task<ActionResult> Edit(int id, EditCandidatureViewModel vm)
+                {
+                    try
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            Candidature newCandid = new(vm.PostName, vm.ModificationDate, vm.Status, vm.Comment);
+                            await _dao.UpdateCandidature(id, User.FindFirstValue(ClaimTypes.NameIdentifier), newCandid);
+                        }
+
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }*/
 
         // POST: DashboardController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, IFormCollection c)
@@ -87,3 +119,4 @@ namespace MVC.Controllers
         }
     }
 }
+

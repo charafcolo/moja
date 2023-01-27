@@ -33,8 +33,24 @@ namespace DAO.DAO
                 if( c.Count() > 0 )
                 {
                     _db.Remove(c.First());
+                    await _db.SaveChangesAsync();
                 }
-                await _db.SaveChangesAsync();
+                
+            }
+        }
+        public async Task UpdateCandidature(int id, string userId, Candidature updated)
+        {
+            {
+                IQueryable<Candidature> c = _db.Candidatures.Where(c => c.linkedUser.Id == userId);
+                c.Select(c => c.Id).Where(i => i == id);
+                c.Select(c => c.linkedUser.Id).Where(i => userId == i);
+                if (c.Count() > 0)
+                {
+                    updated.Id = c.First().Id;
+                    _db.Update(updated);
+                    await _db.SaveChangesAsync();
+                }
+                
             }
         }
         public async Task<IQueryable<Candidature>> GetCandidatureByUser(string id)
@@ -54,6 +70,12 @@ namespace DAO.DAO
             }
             string postAndCity = c.First().PostName + " " + c.First().Entreprise.City;
             return postAndCity;
+        }
+        public async Task<Candidature> GetCandidatureById(int id, string userId)
+        {
+            IQueryable<Candidature> c = await this.GetCandidatureByUser(userId);
+            c.Select(c => c.Id).Where(i => id == i);
+            return c.First();
         }
     }
 }

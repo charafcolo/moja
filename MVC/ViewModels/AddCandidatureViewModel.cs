@@ -21,7 +21,7 @@ namespace MVC.ViewModels
         public List<SelectListItem> StatusList;
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}", ApplyFormatInEditMode = true)]
         public DateTime ModificationDate { get; set; }
         public string Comment { get; set; }

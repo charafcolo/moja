@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MVC</title>
+    <title>@ViewData["Title"] - Moja</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
 
@@ -15,9 +15,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MVC</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Moja</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,10 +25,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         </li>
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
                         {
@@ -42,8 +42,8 @@
                                     Manage
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item text-dark" asp-controller="Administration" asp-action="ListRoles">Roles</a></li>
-                                    <li><a class="dropdown-item text-dark" asp-controller="Administration" asp-action="ListUsers">Users</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Administration" asp-action="ListRoles">Roles</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Administration" asp-action="ListUsers">Users</a></li>
                                 </ul>
                             </li>
                         }
@@ -53,7 +53,7 @@
                         {
                             <li class="nav-item">
                                 <form methode="post" asp-controller="Account" asp-action="Logout">
-                                    <button type="submit" class="nan-link btn btn-link py-0" style="width:auto">Logout @User?.Identity?.Name</button>
+                                    <button type="submit" class="btn btn-dark" style="width:auto">Logout @User?.Identity?.Name</button>
                                 </form>
                             </li>
 
@@ -61,10 +61,10 @@
                         else
                         {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">S'inscrire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Se connecter</a>
                     </li>
                         }
                 </ul>
@@ -80,7 +80,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - MOJA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

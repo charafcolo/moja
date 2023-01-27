@@ -3,15 +3,21 @@ using DAO.DAO;
 using DAO.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+var mvcBuilder = builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+if(builder.Environment.IsDevelopment())
+{
+    mvcBuilder.AddRazorRuntimeCompilation();
+}
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 {

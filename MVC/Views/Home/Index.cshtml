@@ -8,7 +8,7 @@
 @inject SignInManager<ApplicationUser> signInManager;
 <div class="text-center">
     <h1 class="display-4">Bienvenue</h1>
-    <p>Veuillez vous connectez afin d'accéder à vos services</p>
+    
     @if (signInManager.IsSignedIn(User))
     {
         <div class="row w-100 m-20 justify-content-center">
@@ -24,6 +24,10 @@
                     </div>
             }
     </div>
+    }
+    else 
+    {
+       <p>Veuillez vous connectez afin d'accéder à vos services</p>
     }
 
 </div>

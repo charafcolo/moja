@@ -2,55 +2,32 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-    @{
-        ViewData["Title"] = "Index";
-    }
+@{
+    ViewData["Title"] = "Dashboard";
+}
 
-    <h1>Index</h1>
+<h1>Liste de vos candidatures</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModificationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Comment)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ModificationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Comment)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Créer une nouvelle candidature</a>
+</p>
+<div class="row w-100 m-20 justify-content-center">
+@foreach (var item in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body bg-success">
+            <label asp-for="@item.PostName" class="control-label">Poste : </label>
+            <h5 class="card-title fw-bold">@Html.DisplayFor(modelItem => item.PostName)</h5>
+            <label asp-for="@item.Status" class="control-label">Status de la candidature : </label>
+            <p class="card-text text-white">@Html.DisplayFor(modelItem => item.Status)</p>
+            <label asp-for="@item.ModificationDate" class="control-label">Dernière modification : </label>
+            <p class="card-text text-white">@Html.DisplayFor(modelItem => item.ModificationDate)</p>
+            <label asp-for="@item.Comment" class="control-label">Commentaire : </label>
+            <p class="card-text text-white">@Html.DisplayFor(modelItem => item.Comment)</p>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="bg-info text-white btn">Edit</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="bg-danger text-white btn">Delete</a>
+        </div>
+    </div>
+
+}
+</div>
