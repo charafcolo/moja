@@ -23,9 +23,11 @@ namespace MVC.Controllers
         }
 
         // GET: DashboardController
+        [Authorize]
         public async Task<ActionResult> Index()
         {
-            List<Candidature> c = await _dao.GetCandidatureByUser(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            IQueryable<Candidature> cIqueryable = await _dao.GetCandidatureByUser(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            List<Candidature> c = cIqueryable.ToList();
             return View(c);
         }
 
@@ -33,8 +35,9 @@ namespace MVC.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            AddCandidatureViewModel model = new();
             
-            return View();
+            return View(model);
         }
 
         // POST: DashboardController/Create
@@ -45,13 +48,15 @@ namespace MVC.Controllers
         {
             try
             {
-
+                if(ModelState.IsValid) { 
                 Entreprise newEntreprise = new(viewModel.EntrepriseName) { City = viewModel.EntrepriseCity};
                 Candidature createCandidature = new(viewModel.PostName, viewModel.ModificationDate, viewModel.Status, viewModel.Comment);
                 createCandidature.Entreprise = newEntreprise;
-                _dao.AddCandidature(User.FindFirstValue(ClaimTypes.NameIdentifier), createCandidature);
+                await _dao.AddCandidature(User.FindFirstValue(ClaimTypes.NameIdentifier), createCandidature);
 
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
+                }
+                return View(viewModel);
             }
             catch
             {
@@ -72,7 +77,7 @@ namespace MVC.Controllers
         {
             try
             {
-                await _dao.DeleteCandidature(id);
+                await _dao.DeleteCandidature(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
                 return RedirectToAction(nameof(Index));
             }
             catch

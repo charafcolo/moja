@@ -1,29 +1,24 @@
 ﻿using DAO.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace MVC.ViewModels
 {
     public class AddCandidatureViewModel
     {
-         public enum listOfStatus
+        //CandidaturesProperties
+        public enum StatusItem
         {
             Préparation,
-            En_cours,
+            EnCours,
             Envoyé,
             Entretien
-
         }
-        //CandidaturesProperties
         [Required]
         public string PostName { get; set; }
         [Required]
-        private string status;
-
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
+        public string Status { get; set; }
+        public List<SelectListItem> StatusList;
 
         [Required]
         [DataType(DataType.DateTime)]
@@ -34,6 +29,33 @@ namespace MVC.ViewModels
         public string EntrepriseName { get; set; }
         public string EntrepriseCity { get; set; }
 
+        public AddCandidatureViewModel()
+        {
+            StatusList= new List<SelectListItem>();
+            StatusList.Add(new SelectListItem
+            {
+                Value = "Préparation",
+                Text = StatusItem.Préparation.ToString()
+            });
+            StatusList.Add(new SelectListItem
+            {
+                Value = "En cours",
+                Text = "En cours"
+            });
+            StatusList.Add(new SelectListItem
+            {
+                Value = "Envoyé",
+                Text = StatusItem.Envoyé.ToString()
+            });
+            StatusList.Add(new SelectListItem
+            {
+                Value = "Entretien",
+                Text = StatusItem.Entretien.ToString()
+            });
+            this.ModificationDate= DateTime.Now;
 
+        }
     }
+
 }
+

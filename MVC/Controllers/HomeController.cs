@@ -22,9 +22,9 @@ namespace MVC.Controllers
             _user = user;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(RequestPoleEmploi.RetourResult(_dao.GetPost(User.FindFirstValue(ClaimTypes.NameIdentifier))));
+            return View(RequestPoleEmploi.RetourResult(await _dao.GetPost(User.FindFirstValue(ClaimTypes.NameIdentifier))));
         }
 
         public IActionResult Privacy()

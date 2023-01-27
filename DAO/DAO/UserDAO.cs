@@ -23,28 +23,36 @@ namespace DAO.DAO
             _db.Candidatures.Add(c);
             await _db.SaveChangesAsync();
         }
-        public async Task DeleteCandidature(int id)
+        public async Task DeleteCandidature(int id, string userId)
         {
-            Candidature c = await _db.Candidatures.FindAsync(id);
-            _db.Candidatures.Remove(c);
-            await _db.SaveChangesAsync();
+            {
+                IQueryable<Candidature> c = _db.Candidatures.Where(c => c.linkedUser.Id == userId);
+                c.Select(c => c.Id).Where(i => i == id);
+                c.Select(c => c.linkedUser.Id).Where(i => userId== i);
+
+                if( c.Count() > 0 )
+                {
+                    _db.Remove(c.First());
+                }
+                await _db.SaveChangesAsync();
+            }
         }
-        public async Task<List<Candidature>> GetCandidatureByUser(string id)
-        {
-            List<Candidature> c = await _db.Candidatures.ToListAsync();
-            c.Select(c => c.linkedUser.Id).Where(i => i == id);
-            return c;
-        }
-        public string GetPost(string id)
+        public async Task<IQueryable<Candidature>> GetCandidatureByUser(string id)
         {
             IQueryable<Candidature> c = _db.Candidatures.Where(c => c.linkedUser.Id == id);
             c.Select(c => c.linkedUser.Id).Where(i => i == id);
+            return c;
+        }
+        public async Task<string> GetPost(string id)
+        {
+            IQueryable<Candidature> c = await GetCandidatureByUser(id);
+            c.Select(c => c.linkedUser.Id).Where(i => i == id);
             List<Entreprise> e = _db.Entreprises.ToList();
-            if(c.Count() == 0)
+            if (c.Count() == 0)
             {
                 return "";
             }
-            string postAndCity = c.First().PostName+" "+c.First().Entreprise.City;
+            string postAndCity = c.First().PostName + " " + c.First().Entreprise.City;
             return postAndCity;
         }
     }

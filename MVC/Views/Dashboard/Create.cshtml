@@ -12,11 +12,13 @@
         <input asp-for="PostName" class="form-control" />
         <span asp-validation-for="PostName" class="text-danger"></span>
         <label asp-for="Status" class="control-label"></label>
-        <input asp-for="Status" class="form-control" />
+        <br />
+        @Html.DropDownListFor(c => c.Status, Model.StatusList)
+        <br />
         <span asp-validation-for="Status" class="text-danger"></span>
         <label asp-for="ModificationDate" class="control-label"></label>
         <br />
-        @Html.EditorFor(model => model.ModificationDate)
+        @Html.EditorFor(model => model.ModificationDate, Model.ModificationDate)
         <span asp-validation-for="ModificationDate" class="text-danger"></span>
         <br />
         <label asp-for="Comment" class="control-label"></label>
